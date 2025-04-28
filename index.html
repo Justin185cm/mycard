@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Cards</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <h1>My Cards</h1>
+
+  <form id="cardForm">
+    <input type="hidden" id="cardId">
+    <input type="text" id="cardName" placeholder="Card Name" required>
+    <input type="text" id="barcodeData" placeholder="Barcode Number" required>
+    <button type="submit">Save Card</button>
+  </form>
+
+  <button onclick="startScan()">Scan Barcode</button>
+  <button onclick="exportDb()">Export Cards</button>
+  <input type="file" id="importFile" accept=".sqlite,.json" onchange="importDb()" hidden>
+  <button onclick="document.getElementById('importFile').click()">Import Cards</button>
+
+  <div id="cardsList"></div>
+
+  <div id="scanner" style="display:none;"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.7/html5-qrcode.min.js"></script>
+  <script src="app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
