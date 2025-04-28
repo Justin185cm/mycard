@@ -2,9 +2,22 @@ let db;
 
 async function initDb() {
   const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
-  db = new SQL.Database();
-  db.run("CREATE TABLE IF NOT EXISTS cards (id INTEGER PRIMARY KEY, name TEXT, barcode TEXT)");
+
+  const savedDb = localStorage.getItem('cardAppDb');
+  if (savedDb) {
+    const uInt8Array = Uint8Array.from(atob(savedDb), c => c.charCodeAt(0));
+    db = new SQL.Database(uInt8Array);
+  } else {
+    db = new SQL.Database();
+    db.run("CREATE TABLE IF NOT EXISTS cards (id INTEGER PRIMARY KEY, name TEXT, barcode TEXT)");
+  }
   loadCards();
+}
+
+function saveDb() {
+  const binaryArray = db.export();
+  const base64String = btoa(String.fromCharCode(...binaryArray));
+  localStorage.setItem('cardAppDb', base64String);
 }
 
 function loadCards() {
@@ -32,6 +45,7 @@ function loadCards() {
 
 function deleteCard(id) {
   db.run("DELETE FROM cards WHERE id = ?", [id]);
+  saveDb();
   loadCards();
 }
 
@@ -57,6 +71,7 @@ document.getElementById('cardForm').addEventListener('submit', function(e) {
     } else {
       db.run("INSERT INTO cards (name, barcode) VALUES (?, ?)", [name, barcode]);
     }
+	saveDb();
     document.getElementById('cardForm').reset();
     loadCards();
   }
@@ -107,5 +122,34 @@ function startScan() {
     console.error("Scan error", err);
   });
 }
+
+function backupToCloud() {
+  const binaryArray = db.export();
+  const blob = new Blob([binaryArray], { type: "application/octet-stream" });
+  
+  if (navigator.share) {
+    // if support Web Share API (Most iPhone/Safari supported)
+    const file = new File([blob], "Mycards-backup.sqlite", { type: "application/octet-stream" });
+    
+    navigator.share({
+      title: "MyCard Backup",
+      text: "This is my member cards backup file",
+      files: [file]
+    }).then(() => {
+      console.log("Backuped!");
+    }).catch((error) => {
+      console.error("Backup fault:", error);
+    });
+  } else {
+    // if share is not support, download it
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Mycards-backup.sqlite';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+}
+
 
 initDb();
