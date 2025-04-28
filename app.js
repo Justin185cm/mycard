@@ -89,6 +89,19 @@ async function exportDb() {
   URL.revokeObjectURL(url);
 }
 
+async function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const arrayBuffer = await file.arrayBuffer();
+  const SQL = await initSqlJs({ locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}` });
+  db = new SQL.Database(new Uint8Array(arrayBuffer));
+
+  saveDb();
+  loadCards();
+  alert('Imported!');
+}
+
 async function importDb() {
   const fileInput = document.getElementById('importFile');
   const file = fileInput.files[0];
