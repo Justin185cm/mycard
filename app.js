@@ -151,5 +151,4 @@ function backupToCloud() {
   }
 }
 
-
 initDb();
