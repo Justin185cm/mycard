@@ -1,42 +1,39 @@
+
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Cards</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>會員卡管理</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>My Cards</h1>
-
-  <form id="cardForm">
-    <input type="hidden" id="cardId">
-    <input type="text" id="cardName" placeholder="Card Name" required>
-    <input type="text" id="barcodeData" placeholder="Barcode Number" required>
-    <button type="submit">Save Card</button>
-  </form>
-
-  <button onclick="startScan()">Scan Barcode</button>
-  <button onclick="exportDb()">Export Cards</button>
-  <button onclick="backupToCloud()">☁️Cloud Backup</button>
-  <input type="file" id="importFile" accept=".sqlite,.json" onchange="importDb()" hidden>
-  <button onclick="document.getElementById('importFile').click()">Import Cards</button>
-
-  <div id="cardsList"></div>
-
-  <div id="scanner" style="display:none;"></div>
-
+  <main class="container">
+    <h2>我的會員卡</h2>
+    <div id="cardList"></div>
+    <dialog id="cardDialog">
+      <article>
+        <header><h3 id="dialogTitle"></h3></header>
+        <img id="dialogIcon" alt="icon" style="width:64px;height:64px;" />
+        <p><strong>條碼：</strong><span id="dialogBarcode"></span></p>
+        <canvas id="barcodeCanvas"></canvas>
+        <div id="qrcode"></div>
+        <footer>
+          <button id="editBtn">編輯</button>
+          <button id="deleteBtn">刪除</button>
+          <button id="closeBtn" class="secondary">返回</button>
+        </footer>
+      </article>
+    </dialog>
+  </main>
+  <nav class="bottom-nav">
+    <a href="index.html" class="active">首頁</a>
+    <a href="add.html">新增</a>
+    <a href="settings.html">設定</a>
+  </nav>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
-  <script src="https://unpkg.com/html5-qrcode@2.3.7/html5-qrcode.min.js"></script>
-  <script src="app.js"></script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
