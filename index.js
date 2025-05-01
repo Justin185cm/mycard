@@ -43,7 +43,6 @@ function initIndexPage() {
           <img src="${card.icon || defaultIcon}" alt="${card.name}" width="48" />
           <strong>${card.name}</strong>
         `;
-		img.onerror = () => { img.src = defaultIcon; };
         cardEl.addEventListener('click', () => showCardDetail(card));
         cardListEl.appendChild(cardEl);
       });
