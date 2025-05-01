@@ -1,5 +1,5 @@
 let db;
-
+const defaultIcon = 'icon/icon-192.png';
 // 開啟 IndexedDB
 const dbRequest = indexedDB.open('membershipCards', 1);
 dbRequest.onupgradeneeded = event => {
@@ -40,9 +40,10 @@ function initIndexPage() {
         const cardEl = document.createElement('article');
         cardEl.classList.add('card');
         cardEl.innerHTML = `
-          <img src="${card.icon || 'https://via.placeholder.com/80'}" alt="${card.name}" width="48" />
+          <img src="${card.icon || defaultIcon}" alt="${card.name}" width="48" />
           <strong>${card.name}</strong>
         `;
+		img.onerror = () => { img.src = defaultIcon; };
         cardEl.addEventListener('click', () => showCardDetail(card));
         cardListEl.appendChild(cardEl);
       });
@@ -53,7 +54,10 @@ function initIndexPage() {
   currentCardId = card.id;
   cardListEl.style.display = 'none';
   cardDetailEl.style.display = 'block';
-  document.getElementById('cardIcon').src = card.icon || 'https://via.placeholder.com/100';
+  document.getElementById('cardIcon').src = card.icon || defaultIcon;
+  document.getElementById('cardIcon').onerror = () => {
+	  document.getElementById('cardIcon').src = defaultIcon;
+	};
   document.getElementById('cardName').textContent = card.name;
 
   const container = document.getElementById('barcodeContainer');
