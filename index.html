@@ -1,39 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>會員卡管理</title>
+  <title>會員卡列表</title>
   <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest" />
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="index.js"></script>
 </head>
 <body>
   <main class="container">
     <h2>我的會員卡</h2>
+
     <div id="cardList"></div>
-    <dialog id="cardDialog">
-      <article>
-        <header><h3 id="dialogTitle"></h3></header>
-        <img id="dialogIcon" alt="icon" style="width:64px;height:64px;" />
-        <p><strong>條碼：</strong><span id="dialogBarcode"></span></p>
-        <canvas id="barcodeCanvas"></canvas>
-        <div id="qrcode"></div>
-        <footer>
-          <button id="editBtn">編輯</button>
-          <button id="deleteBtn">刪除</button>
-          <button id="closeBtn" class="secondary">返回</button>
-        </footer>
-      </article>
-    </dialog>
+
+    <div id="cardDetail" style="display: none;">
+      <a href="#" id="backBtn">← 返回</a><p>
+      <img id="cardIcon" src="" alt="Card Icon" width="80" />
+      <h3 id="cardName"></h3>
+      <p><strong>條碼內容：</strong><span id="cardBarcode"></span></p>
+      <div id="barcodeContainer" style="margin-bottom: 1em;"></div>
+      <button id="editBtn">編輯</button>
+      <button id="deleteBtn" class="secondary">刪除</button>
+    </div>
   </main>
+
   <nav class="bottom-nav">
     <a href="index.html" class="active">首頁</a>
     <a href="add.html">新增</a>
     <a href="settings.html">設定</a>
   </nav>
-  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-  <script src="index.js"></script>
+
 </body>
 </html>

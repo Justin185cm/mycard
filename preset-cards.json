@@ -1,38 +1,44 @@
 [
-	{
-	"name": "Everyday Rewards",
-	"icon": "https://www.everyday.com.au/favicon.ico"
-	},
-	{
-	"name": "Flybuys",
-	"icon": "https://experience.flybuys.com.au/favicon.ico"
-	},
-	{
-	"name": "Supercheap Auto",
-	"icon": "https://www.supercheapauto.com.au/favicon.ico"
-	},
-	{
-	"name": "RACQ",
-	"icon": "https://www.racq.com.au/favicon.ico"
-	},
-	{
-	"name": "全聯福利卡",
-	"icon": "https://www.pxmart.com.tw/favicon.ico"
-	},
-	{
-	"name": "家樂福",
-	"icon": "https://www.carrefour.com.tw/favicon.ico"
-	},
-	{
-	"name": "誠品",
-	"icon": "https://www.eslite.com/favicon.ico"
-	},
-	{
-	"name": "康是美",
-	"icon": "https://www.cosmed.com.tw/favicon.ico"
-	},
-	{
-	"name": "屈臣氏",
-	"icon": "https://www.watsons.com.tw/favicon.ico"
-	}
+  {
+    "name": "全聯福利卡",
+    "icon": "https://www.pxmart.com.tw/favicon.ico",
+    "sample": "123456789012",
+    "format": "EAN13"
+  },
+  {
+    "name": "家樂福會員",
+    "icon": "https://www.carrefour.com.tw/favicon.ico",
+    "sample": "1234567890123",
+    "format": "EAN13"
+  },
+  {
+    "name": "誠品會員",
+    "icon": "https://www.eslite.com/favicon.ico",
+    "sample": "A123456789",
+    "format": "CODE128"
+  },
+  {
+    "name": "悠遊卡註冊碼",
+    "icon": "https://www.easycard.com.tw/favicon.ico",
+    "sample": "9101234567890123",
+    "format": "QRCode"
+  },
+  {
+    "name": "健保卡QR碼",
+    "icon": "https://www.nhi.gov.tw/favicon.ico",
+    "sample": "NHI-987654321",
+    "format": "QRCode"
+  },
+  {
+    "name": "星巴克會員",
+    "icon": "https://www.starbucks.com.tw/favicon.ico",
+    "sample": "SB123456789",
+    "format": "CODE128"
+  },
+  {
+    "name": "7-11 OPEN會員",
+    "icon": "https://www.7-11.com.tw/favicon.ico",
+    "sample": "OP987654321",
+    "format": "CODE128"
+  }
 ]
